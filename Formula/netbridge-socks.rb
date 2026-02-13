@@ -16,6 +16,9 @@ class NetbridgeSocks < Formula
     ENV["UV_PYTHON_INSTALL_DIR"] = python_dir.to_s
     system "uv", "venv", venv, "--python", "3.14"
 
+    # Inject the formula version into pyproject.toml (the source uses a placeholder)
+    inreplace buildpath/"socks-proxy/pyproject.toml", /^version = .*$/, "version = \"#{version}\""
+
     # Install shared-auth first (local dependency)
     system "uv", "pip", "install", "--python", venv/"bin/python", buildpath/"shared"
 
