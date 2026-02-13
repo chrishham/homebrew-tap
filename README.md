@@ -39,9 +39,16 @@ brew services start netbridge-socks
 ### Manage service
 
 ```bash
-brew services start netbridge-socks    # Start
+brew services start netbridge-socks    # Start (auto-starts at boot)
+brew services run netbridge-socks      # Start (current session only)
 brew services stop netbridge-socks     # Stop
 brew services restart netbridge-socks  # Restart
+```
+
+### Logs
+
+```bash
+tail -f $(brew --prefix)/var/log/netbridge-socks.log
 ```
 
 See the [NetBridge README](https://github.com/chrishham/netbridge) for full documentation.
