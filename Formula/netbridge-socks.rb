@@ -8,9 +8,11 @@ class NetbridgeSocks < Formula
   depends_on "uv"
 
   def install
-    # Install shared-auth library and socks-proxy into a venv
-    # uv manages its own Python installation
+    # Store uv-managed Python inside the formula prefix so it persists after build
+    python_dir = libexec/"python"
     venv = libexec/"venv"
+
+    ENV["UV_PYTHON_INSTALL_DIR"] = python_dir.to_s
     system "uv", "venv", venv, "--python", "3.14"
 
     # Install shared-auth first (local dependency)
@@ -18,6 +20,14 @@ class NetbridgeSocks < Formula
 
     # Install socks-proxy
     system "uv", "pip", "install", "--python", venv/"bin/python", buildpath/"socks-proxy"
+
+    # Fix the venv python symlink to point to the persisted location
+    python_bin = Dir.glob("#{python_dir}/cpython-*/bin/python3*").reject { |p| File.symlink?(p) }.first
+    (venv/"bin/python").unlink
+    (venv/"bin/python").make_symlink(python_bin)
+
+    # Re-write the vdi-socks shebang to use the correct python path
+    inreplace venv/"bin/vdi-socks", %r{#!.*}, "#!#{venv}/bin/python"
 
     # Create a wrapper script
     (bin/"netbridge-socks").write <<~BASH

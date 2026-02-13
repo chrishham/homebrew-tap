@@ -32,7 +32,7 @@ netbridge-socks --relay wss://your-relay.example.com/tunnel
 
 # Or as a background service (macOS & Linux)
 # First, edit the config with your relay URL:
-#   $(brew --prefix)/etc/netbridge/config
+nano $(brew --prefix)/etc/netbridge/config
 brew services start netbridge-socks
 ```
 
