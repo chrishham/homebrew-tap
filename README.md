@@ -39,10 +39,12 @@ brew services start netbridge-socks
 ### Manage service
 
 ```bash
+brew services info netbridge-socks     # Show service status
 brew services start netbridge-socks    # Start (auto-starts at boot)
 brew services run netbridge-socks      # Start (current session only)
 brew services stop netbridge-socks     # Stop
 brew services restart netbridge-socks  # Restart
+netbridge-socks --version              # Show installed version
 ```
 
 ### Changing the Relay URL
