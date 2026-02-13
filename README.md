@@ -28,7 +28,7 @@ brew install netbridge-socks
 
 ```bash
 # Run manually
-netbridge-socks --relay wss://your-relay.example.com/tunnel
+netbridge-socks --relay your-relay-host.example.com
 
 # Or as a background service (macOS & Linux)
 # First, edit the config with your relay URL:

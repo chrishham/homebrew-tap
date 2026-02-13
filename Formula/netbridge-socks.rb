@@ -59,8 +59,8 @@ class NetbridgeSocks < Formula
     config = etc/"netbridge/config"
     unless config.exist?
       config.write <<~EOS
-        # NetBridge relay URL (required - replace with your actual relay URL)
-        RELAY_URL=wss://your-relay-host.example.com/tunnel
+        # NetBridge relay hostname (required - just the hostname, e.g. relay.example.com)
+        RELAY_URL=your-relay-host.example.com
       EOS
     end
 
