@@ -1,7 +1,7 @@
 class NetbridgeSocks < Formula
   desc "SOCKS5 and HTTP proxy client for NetBridge VDI tunnel"
   homepage "https://github.com/chrishham/netbridge"
-  url "https://github.com/chrishham/netbridge/archive/refs/heads/main.tar.gz"
+  url "https://github.com/chrishham/netbridge/archive/refs/tags/socks-v0.1.0.tar.gz"
   version "0.1.0"
   license "MIT"
 
