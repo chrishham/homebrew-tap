@@ -45,6 +45,22 @@ brew services stop netbridge-socks     # Stop
 brew services restart netbridge-socks  # Restart
 ```
 
+### Changing the Relay URL
+
+Edit the config file and restart the service:
+
+```bash
+nano $(brew --prefix)/etc/netbridge/config
+brew services restart netbridge-socks
+```
+
+### Upgrading
+
+```bash
+brew reinstall --force netbridge-socks
+brew services restart netbridge-socks
+```
+
 ### Logs
 
 ```bash
