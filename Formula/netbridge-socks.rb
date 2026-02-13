@@ -3,6 +3,7 @@ class NetbridgeSocks < Formula
   homepage "https://github.com/chrishham/netbridge"
   url "https://github.com/chrishham/netbridge/archive/refs/tags/socks-v0.1.1.tar.gz"
   version "0.1.1"
+  sha256 "c4c2b86b64cc7da49abbb3a15c7a003d0de69f251e7ff00d938ce3a40d74c67c"
   license "MIT"
 
   depends_on "uv"
