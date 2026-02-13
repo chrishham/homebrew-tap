@@ -57,6 +57,7 @@ brew services restart netbridge-socks
 ### Upgrading
 
 ```bash
+brew update
 brew upgrade netbridge-socks
 brew services restart netbridge-socks
 ```
