@@ -5,13 +5,13 @@ class NetbridgeSocks < Formula
   version "0.1.0"
   license "MIT"
 
-  depends_on "python@3.12"
   depends_on "uv"
 
   def install
     # Install shared-auth library and socks-proxy into a venv
+    # uv manages its own Python installation
     venv = libexec/"venv"
-    system "uv", "venv", venv, "--python", Formula["python@3.12"].opt_bin/"python3.12"
+    system "uv", "venv", venv, "--python", "3.14"
 
     # Install shared-auth first (local dependency)
     system "uv", "pip", "install", "--python", venv/"bin/python", buildpath/"shared"
