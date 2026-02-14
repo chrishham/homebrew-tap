@@ -1,5 +1,5 @@
 class NetbridgeSocks < Formula
-  desc "SOCKS5 and HTTP proxy client for NetBridge VDI tunnel"
+  desc "SOCKS5 and HTTP proxy client for NetBridge"
   homepage "https://github.com/chrishham/netbridge"
   url "https://github.com/chrishham/netbridge/archive/refs/tags/socks-v0.2.3.tar.gz"
   version "0.2.3"
@@ -30,13 +30,13 @@ class NetbridgeSocks < Formula
     (venv/"bin/python").unlink
     (venv/"bin/python").make_symlink(python_bin)
 
-    # Re-write the vdi-socks shebang to use the correct python path
-    inreplace venv/"bin/vdi-socks", %r{#!.*}, "#!#{venv}/bin/python"
+    # Re-write the netbridge-socks shebang to use the correct python path
+    inreplace venv/"bin/netbridge-socks", %r{#!.*}, "#!#{venv}/bin/python"
 
     # Create a wrapper script
     (bin/"netbridge-socks").write <<~BASH
       #!/bin/bash
-      exec "#{venv}/bin/vdi-socks" "$@"
+      exec "#{venv}/bin/netbridge-socks" "$@"
     BASH
   end
 
@@ -73,7 +73,7 @@ class NetbridgeSocks < Formula
     (libexec/"netbridge-socks-service").write <<~BASH
       #!/bin/bash
       source "#{etc}/netbridge/config"
-      exec "#{libexec}/venv/bin/vdi-socks" --relay "$RELAY_URL"
+      exec "#{libexec}/venv/bin/netbridge-socks" --relay "$RELAY_URL"
     BASH
     (libexec/"netbridge-socks-service").chmod 0755
   end
