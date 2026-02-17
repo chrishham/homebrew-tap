@@ -69,9 +69,11 @@ class NetbridgeSocks < Formula
     end
 
     # Create wrapper that reads config before launching
+    # Include Homebrew bin dirs in PATH so az CLI is discoverable under launchd
     (libexec/"netbridge-socks-service").delete if (libexec/"netbridge-socks-service").exist?
     (libexec/"netbridge-socks-service").write <<~BASH
       #!/bin/bash
+      export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
       source "#{etc}/netbridge/config"
       exec "#{libexec}/venv/bin/netbridge-socks" --relay "$RELAY_URL"
     BASH
