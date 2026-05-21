@@ -1,9 +1,9 @@
 class NetbridgeSocks < Formula
   desc "SOCKS5 and HTTP proxy client for NetBridge"
   homepage "https://github.com/chrishham/netbridge"
-  url "https://github.com/chrishham/netbridge/archive/refs/tags/socks-v1.2.0.tar.gz"
-  version "1.2.0"
-  sha256 "4f5fcd4237a0d127f7897e0a5222d2e25159138ec8110d4a4c435e35deb6043d"
+  url "https://github.com/chrishham/netbridge/archive/refs/tags/socks-v1.2.1.tar.gz"
+  version "1.2.1"
+  sha256 "6cce15c012b870a887f61823cc346617daa33add51f5f3609d21ce93b75f7587"
   license "MIT"
 
   depends_on "uv"
