@@ -41,21 +41,22 @@ class NetbridgeSocks < Formula
   end
 
   def caveats
-    <<~EOS
+    caveats_text = <<~EOS
       To use netbridge-socks, you need:
         1. Azure CLI installed and logged in (az login)
         2. Your relay URL (ask your team admin)
 
-      Run manually:
-        netbridge-socks --relay wss://your-relay.example.com/tunnel
+      Configure your relay URL:
+        #{etc}/netbridge/config
 
-      Or run as a service:
-        1. Edit the config with your relay URL:
-           #{etc}/netbridge/config
+      macOS — run as a service (tray icon appears automatically):
+        brew services start netbridge-socks
 
-        2. Start the service:
-           brew services start netbridge-socks
+      Linux — the tray icon needs your desktop session:
+        Log out and back in (autostart entry was created), or run now:
+        #{opt_libexec}/netbridge-socks-tray &
     EOS
+    caveats_text
   end
 
   def post_install
@@ -70,14 +71,48 @@ class NetbridgeSocks < Formula
 
     # Create wrapper that reads config before launching
     # Include Homebrew bin dirs in PATH so az CLI is discoverable under launchd
+    # On macOS (launchd), tray works automatically; on Linux (systemd), use --no-tray
     (libexec/"netbridge-socks-service").delete if (libexec/"netbridge-socks-service").exist?
     (libexec/"netbridge-socks-service").write <<~BASH
       #!/bin/bash
       export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
       source "#{etc}/netbridge/config"
-      exec "#{libexec}/venv/bin/netbridge-socks" --relay "$RELAY_URL"
+      TRAY_FLAG=""
+      if [ "$(uname)" = "Linux" ]; then
+        TRAY_FLAG="--no-tray"
+      fi
+      exec "#{libexec}/venv/bin/netbridge-socks" --relay "$RELAY_URL" $TRAY_FLAG
     BASH
     (libexec/"netbridge-socks-service").chmod 0755
+
+    # On Linux, create a tray-enabled launcher (reads config, keeps tray)
+    (libexec/"netbridge-socks-tray").delete if (libexec/"netbridge-socks-tray").exist?
+    (libexec/"netbridge-socks-tray").write <<~BASH
+      #!/bin/bash
+      export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+      source "#{etc}/netbridge/config"
+      exec "#{libexec}/venv/bin/netbridge-socks" --relay "$RELAY_URL"
+    BASH
+    (libexec/"netbridge-socks-tray").chmod 0755
+
+    # On Linux, create a .desktop autostart entry for tray mode
+    if OS.linux?
+      autostart_dir = Pathname.new(Dir.home)/".config/autostart"
+      autostart_dir.mkpath
+      desktop_file = autostart_dir/"netbridge-socks.desktop"
+      unless desktop_file.exist?
+        desktop_file.write <<~DESKTOP
+          [Desktop Entry]
+          Type=Application
+          Name=NetBridge Socks
+          Comment=SOCKS5/HTTP proxy with system tray
+          Exec=#{libexec}/netbridge-socks-tray
+          Hidden=false
+          X-GNOME-Autostart-enabled=true
+          StartupNotify=false
+        DESKTOP
+      end
+    end
   end
 
   service do
