@@ -96,10 +96,12 @@ class NetbridgeSocks < Formula
     (libexec/"netbridge-socks-service").chmod 0755
 
     # On Linux, create a tray-enabled launcher (reads config, keeps tray)
+    # Include system GI typelib paths so AppIndicator3 is discoverable
     (libexec/"netbridge-socks-tray").delete if (libexec/"netbridge-socks-tray").exist?
     (libexec/"netbridge-socks-tray").write <<~BASH
       #!/bin/bash
       export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+      export GI_TYPELIB_PATH="/usr/lib/girepository-1.0:/usr/lib/x86_64-linux-gnu/girepository-1.0:${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"
       source "#{etc}/netbridge/config"
       exec "#{libexec}/venv/bin/netbridge-socks" --relay "$RELAY_URL"
     BASH
