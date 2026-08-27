@@ -31,10 +31,14 @@ class NetbridgeSocks < Formula
     # Install socks-proxy
     system "uv", "pip", "install", "--python", venv/"bin/python", buildpath/"socks-proxy"
 
-    # Fix the venv python symlink to point to the persisted location
+    # Fix the venv python symlink to point to the persisted location.
+    # When uv downloads Python into python_dir, the symlink must be updated.
+    # When uv uses an existing Python (e.g. Homebrew's python@3.14), skip this.
     python_bin = Dir.glob("#{python_dir}/cpython-*/bin/python3*").reject { |p| File.symlink?(p) }.first
-    (venv/"bin/python").unlink
-    (venv/"bin/python").make_symlink(python_bin)
+    if python_bin
+      (venv/"bin/python").unlink
+      (venv/"bin/python").make_symlink(python_bin)
+    end
 
     # Re-write the netbridge-socks shebang to use the correct python path
     inreplace venv/"bin/netbridge-socks", %r{#!.*}, "#!#{venv}/bin/python"
