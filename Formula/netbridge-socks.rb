@@ -8,6 +8,12 @@ class NetbridgeSocks < Formula
 
   depends_on "uv"
 
+  on_linux do
+    depends_on "cairo"
+    depends_on "gobject-introspection"
+    depends_on "gtk+3"
+  end
+
   def install
     # Store uv-managed Python inside the formula prefix so it persists after build
     python_dir = libexec/"python"
