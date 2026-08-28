@@ -11,7 +11,6 @@ class NetbridgeSocks < Formula
   on_linux do
     depends_on "cairo"
     depends_on "gobject-introspection"
-    depends_on "gtk+3"
   end
 
   def install
