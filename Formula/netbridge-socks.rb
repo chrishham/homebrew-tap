@@ -61,8 +61,8 @@ class NetbridgeSocks < Formula
       macOS — run as a service (tray icon appears automatically):
         brew services start netbridge-socks
 
-      Linux — the tray icon needs your desktop session:
-        Log out and back in (autostart entry was created), or run now:
+      Linux — starts automatically on login with a tray icon.
+        To run it now without logging out:
         #{opt_libexec}/netbridge-socks-tray &
     EOS
     caveats_text
@@ -106,23 +106,27 @@ class NetbridgeSocks < Formula
     BASH
     (libexec/"netbridge-socks-tray").chmod 0755
 
-    # On Linux, create a .desktop autostart entry for tray mode
+    # On Linux, create a .desktop autostart entry for tray mode.
+    # Always rewrite so the Exec path stays correct after version upgrades.
     if OS.linux?
       autostart_dir = Pathname.new(Dir.home)/".config/autostart"
       autostart_dir.mkpath
       desktop_file = autostart_dir/"netbridge-socks.desktop"
-      unless desktop_file.exist?
-        desktop_file.write <<~DESKTOP
-          [Desktop Entry]
-          Type=Application
-          Name=NetBridge Socks
-          Comment=SOCKS5/HTTP proxy with system tray
-          Exec=#{libexec}/netbridge-socks-tray
-          Hidden=false
-          X-GNOME-Autostart-enabled=true
-          StartupNotify=false
-        DESKTOP
-      end
+      desktop_file.atomic_write <<~DESKTOP
+        [Desktop Entry]
+        Type=Application
+        Name=NetBridge Socks
+        Comment=SOCKS5/HTTP proxy with system tray
+        Exec=#{opt_libexec}/netbridge-socks-tray
+        Hidden=false
+        X-GNOME-Autostart-enabled=true
+        StartupNotify=false
+      DESKTOP
+
+      # The XDG autostart handles desktop sessions; disable the headless
+      # systemd service if it was enabled so they don't fight over ports.
+      system "systemctl", "--user", "disable", "--now",
+             "homebrew.netbridge-socks.service", "2>/dev/null"
     end
   end
 
