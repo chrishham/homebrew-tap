@@ -8,7 +8,7 @@ Homebrew tap (`chrishham/tap`) με custom formulae· προς το παρόν �
 |---|---|---|
 | 1 | Αρχικό tap + formula `netbridge-socks` v1.0.0 | ✅ 2026-02-15 |
 | 2 | Service wrapper με Homebrew bin dirs στο PATH, release 1.0.1 | ✅ 2026-02-17 |
-| 3 | Νέα formulae / ενημερώσεις εκδόσεων | 💤 (εκτίμηση: κατ' απαίτηση) |
+| 3 | Νέα formulae / ενημερώσεις εκδόσεων | 🔄 (συνεχές· εκτίμηση: κατ' απαίτηση) |
 
 ## Αποφάσεις (να μην ξαναρωτηθούν)
 
@@ -21,7 +21,7 @@ Homebrew tap (`chrishham/tap`) με custom formulae· προς το παρόν �
 
 ## Εκκρεμότητες Claude
 
-- [ ] Δεν βρέθηκαν TODO/FIXME ούτε ανοιχτή δουλειά στο repo.
+—
 
 ## Ιδέες / μελλοντικά
 
@@ -32,5 +32,13 @@ Homebrew tap (`chrishham/tap`) με custom formulae· προς το παρόν �
 
 - 2026-02-15: Initial commit· formula `netbridge-socks` v1.0.0
 - 2026-02-17: PATH fix στο service wrapper· release 1.0.1
+- 2026-03: 1.0.2
+- 2026-04: 1.0.3
+- 2026-05: 1.1–1.2.3 — διαδοχικά releases του netbridge-socks
+- 2026-06: 1.2.4
+- 2026-08: 1.3–1.5.1 — υποστήριξη tray, autostart σε Linux, Linux deps (cairo, gi, system GTK3), fix GI_TYPELIB_PATH και uv/Python, README για tray vs headless service
+- 2026-09: 1.6.0–1.6.3 — fix Linux autostart (opt_libexec, πάντα rewrite, απενεργοποίηση systemd)
+- 2026-10: 1.7.0
 - 2026-10-24: ROADMAP δημιουργήθηκε από ανασκόπηση repo/memory
 - 2026-11-11: README: ενότητα WSL (headless/--no-tray, systemd για brew services, az login μέσα στο WSL)
+- 2026-10-24: Συμπλήρωση ιστορικού releases 1.0.2–1.7.0· φάση 3 → 🔄 (συνεχές)· αφαίρεση placeholder todo
