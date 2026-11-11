@@ -82,6 +82,38 @@ nano $(brew --prefix)/etc/netbridge/config
 brew services restart netbridge-socks
 ```
 
+### WSL
+
+Use headless mode on WSL. Don't use the tray launcher. With WSLg, `DISPLAY` is set, so the proxy would try to start a tray icon. That only works if pystray finds a system tray, so pass `--no-tray` to skip it.
+
+1. Log in to Azure inside WSL (the Windows `az login` session is not shared):
+
+   ```bash
+   az login
+   ```
+
+2. **As a service (recommended).** `brew services` on Linux needs systemd. Enable it in `/etc/wsl.conf`:
+
+   ```ini
+   [boot]
+   systemd=true
+   ```
+
+   Run `wsl --shutdown` from Windows, reopen WSL, then set the relay and start the service. The service wrapper adds `--no-tray` on Linux automatically:
+
+   ```bash
+   nano $(brew --prefix)/etc/netbridge/config   # RELAY_URL=your-relay-host
+   brew services start netbridge-socks
+   ```
+
+3. **Or in the foreground** (no systemd needed; stops when the terminal closes):
+
+   ```bash
+   netbridge-socks --relay your-relay-host --no-tray
+   ```
+
+The proxy listens on `localhost:1080` (SOCKS5) and `localhost:3128` (HTTP) inside WSL. With WSL's default localhost forwarding, Windows apps can reach the same ports too.
+
 ### Upgrading
 
 ```bash

@@ -33,3 +33,4 @@ Homebrew tap (`chrishham/tap`) με custom formulae· προς το παρόν �
 - 2026-02-15: Initial commit· formula `netbridge-socks` v1.0.0
 - 2026-02-17: PATH fix στο service wrapper· release 1.0.1
 - 2026-10-24: ROADMAP δημιουργήθηκε από ανασκόπηση repo/memory
+- 2026-11-11: README: ενότητα WSL (headless/--no-tray, systemd για brew services, az login μέσα στο WSL)
