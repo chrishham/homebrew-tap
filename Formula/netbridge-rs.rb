@@ -47,9 +47,9 @@ end
 class NetbridgeRs < Formula
   desc "SOCKS5-over-WebSocket tunnel: laptop app with tray icon"
   homepage "https://github.com/chrishham/netbridge-rs"
-  url "https://github.com/chrishham/netbridge-rs/releases/download/v0.2.2/nb-v0.2.2-linux-x86_64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-  version "0.2.2"
-  sha256 "d2eb4e949050f720cfee38d7e86693a8cae4391b7c3ddda6341685e44fa8249e"
+  url "https://github.com/chrishham/netbridge-rs/releases/download/v0.2.5/nb-v0.2.5-linux-x86_64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+  version "0.2.5"
+  sha256 "ea3d12b8b3c3f308154c033b24c937b4d59dcb46e02af29c332a90085c97905b"
 
   depends_on :linux
 
