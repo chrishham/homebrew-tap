@@ -47,9 +47,9 @@ end
 class NetbridgeRs < Formula
   desc "SOCKS5-over-WebSocket tunnel: laptop app with tray icon"
   homepage "https://github.com/chrishham/netbridge-rs"
-  url "https://github.com/chrishham/netbridge-rs/releases/download/v0.2.5/nb-v0.2.5-linux-x86_64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
-  version "0.2.5"
-  sha256 "ea3d12b8b3c3f308154c033b24c937b4d59dcb46e02af29c332a90085c97905b"
+  url "https://github.com/chrishham/netbridge-rs/releases/download/v0.3.0/nb-v0.3.0-linux-x86_64.tar.gz", using: GitHubPrivateReleaseDownloadStrategy
+  version "0.3.0"
+  sha256 "d5a91c1c26fb1627787af724243e13edebefa07fc9c348509e420864128d556d"
 
   depends_on :linux
 
@@ -64,7 +64,7 @@ class NetbridgeRs < Formula
       (present on Mint/Ubuntu desktops).
 
       First run:
-        nb setup <nbt1: line from your admin>
+        nb setup
         nb firefox setup
 
       Start at login while netbridge-socks still runs:
